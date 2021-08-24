@@ -1,4 +1,8 @@
-let g:clear_background=1
+if exists('g:vim_transparent_enable') && g:vim_transparent_enable == 1
+    let s:clear_background=1
+else
+    let s:clear_background=0
+endif
 
 function! s:get_highlight_colors(group)
     redir => highlight
@@ -38,7 +42,7 @@ function! s:clear_bg(group)
 endfunction
 
 function! background#clear_background()
-    if g:clear_background
+    if s:clear_background
         for group in ['Normal', 'Comment', 'Constant', 'Special', 'Identifier',
                     \'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String',
                     \'Function', 'Conditional', 'Repeat', 'Operator', 'Structure',
@@ -49,16 +53,16 @@ function! background#clear_background()
 endfunction
 
 function! background#disable()
-    let g:clear_background=0
+    let s:clear_background=0
     execute 'colorscheme ' . g:colors_name
 endfunction
 
 function! background#enable()
-    let g:clear_background=1
+    let s:clear_background=1
     execute 'colorscheme ' . g:colors_name
 endfunction
 
 function! background#toggle()
-    let g:clear_background=!g:clear_background
+    let s:clear_background=!s:clear_background
     execute 'colorscheme ' . g:colors_name
 endfunction
